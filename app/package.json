@@ -31,10 +31,19 @@
     "react-native-modal-dropdown": "^0.7.0",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
-    "react-native-screens": "2.0.0-alpha.12"
+    "react-native-screens": "2.0.0-alpha.12",
+    "expo-camera": "~8.0.0",
+    "expo-permissions": "~8.0.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^7.0.0"
+    "babel-eslint": "^10.1.0",
+    "babel-preset-expo": "^7.0.0",
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0"
   },
   "author": "Francisco Figuereo <ffiguereo2@gmail.com>",
   "license": "MIT"

@@ -1,15 +1,11 @@
 import React from "react";
-import { Easing, Animated, Dimensions } from "react-native";
-
+import { Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import { Block } from "galio-framework";
 
 // screens
 import Home from "../screens/Home";
-import Onboarding from "../screens/Onboarding";
+import Camera from "../screens/Camera";
 import Pro from "../screens/Pro";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
@@ -19,14 +15,12 @@ import Articles from "../screens/Articles";
 import CustomDrawerContent from "./Menu";
 
 // header for screens
-import { Icon, Header } from "../components";
-import { argonTheme, tabs } from "../constants";
+import { Header } from "../components";
 
 const { width } = Dimensions.get("screen");
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
 
 function ElementsStack(props) {
   return (
@@ -147,8 +141,6 @@ function HomeStack(props) {
           header: ({ navigation, scene }) => (
             <Header
               title="Home"
-              search
-              options
               navigation={navigation}
               scene={scene}
             />
@@ -157,8 +149,8 @@ function HomeStack(props) {
         }}
       />
       <Stack.Screen
-        name="Pro"
-        component={Pro}
+        name="Camera"
+        component={Camera}
         options={{
           header: ({ navigation, scene }) => (
             <Header
@@ -173,21 +165,6 @@ function HomeStack(props) {
           headerTransparent: true
         }}
       />
-    </Stack.Navigator>
-  );
-}
-
-export default function OnboardingStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="none">
-      <Stack.Screen
-        name="Onboarding"
-        component={Onboarding}
-        option={{
-          headerTransparent: true
-        }}
-      />
-      <Stack.Screen name="App" component={AppStack} />
     </Stack.Navigator>
   );
 }
@@ -232,3 +209,10 @@ function AppStack(props) {
   );
 }
 
+export default function OnboardingStack(props) {
+  return (
+    <Stack.Navigator mode="card" headerMode="none">
+      <Stack.Screen name="App" component={AppStack} />
+    </Stack.Navigator>
+  );
+}

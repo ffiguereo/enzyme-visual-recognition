@@ -1,46 +1,90 @@
 import React from 'react';
-import { StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Block, theme } from 'galio-framework';
+import {StyleSheet, Dimensions, ScrollView, Image} from 'react-native';
+import {Block, Text, theme} from 'galio-framework';
 
-import { Card } from '../components';
-import articles from '../constants/articles';
-const { width } = Dimensions.get('screen');
+const {width} = Dimensions.get('screen');
+const cardWidth = width - theme.SIZES.BASE * 2;
+
+const categories = [
+  {
+    title: 'Music Album',
+    image:
+      'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?fit=crop&w=840&q=80',
+  },
+  {
+    title: 'Events',
+    image:
+      'https://images.unsplash.com/photo-1543747579-795b9c2c3ada?fit=crop&w=840&q=80',
+  },
+];
 
 class Home extends React.Component {
-  renderArticles = () => {
+  renderProduct = (item, index) => {
     return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.articles}>
-        <Block flex>
-          <Card item={articles[0]} horizontal  />
-          <Block flex row>
-            <Card item={articles[1]} style={{ marginRight: theme.SIZES.BASE }} />
-            <Card item={articles[2]} />
-          </Block>
-          <Card item={articles[3]} horizontal />
-          <Card item={articles[4]} full />
+      <Block center style={styles.productItem}>
+        <Image
+          resizeMode="cover"
+          style={styles.productImage}
+          source={{uri: item.image}}
+        />
+        <Block center style={{paddingHorizontal: theme.SIZES.BASE}}>
+          <Text style={{paddingTop: theme.SIZES.BASE}} center size={34}>
+            {item.title}
+          </Text>
         </Block>
-      </ScrollView>
-    )
-  }
+      </Block>
+    );
+  };
 
   render() {
     return (
-      <Block flex center style={styles.home}>
-        {this.renderArticles()}
+      <Block flex center>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Block flex style={styles.group}>
+            <Block flex>
+              <Block flex style={{marginTop: theme.SIZES.BASE / 2}}>
+                <ScrollView
+                  horizontal={true}
+                  pagingEnabled={true}
+                  decelerationRate={0}
+                  scrollEventThrottle={16}
+                  snapToAlignment="center"
+                  showsHorizontalScrollIndicator={false}
+                  snapToInterval={cardWidth + theme.SIZES.BASE * 0.375}
+                  contentContainerStyle={{
+                    paddingHorizontal: theme.SIZES.BASE / 2,
+                  }}
+                >
+                  {categories &&
+                    categories.map((item, index) =>
+                      this.renderProduct(item, index),
+                    )}
+                </ScrollView>
+              </Block>
+            </Block>
+          </Block>
+        </ScrollView>
       </Block>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  home: {
-    width: width,    
+  group: {
+    paddingTop: theme.SIZES.BASE,
   },
-  articles: {
-    width: width - theme.SIZES.BASE * 2,
-    paddingVertical: theme.SIZES.BASE,
+  productItem: {
+    width: cardWidth - theme.SIZES.BASE * 2,
+    marginHorizontal: theme.SIZES.BASE,
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 7},
+    shadowRadius: 10,
+    shadowOpacity: 0.2,
+  },
+  productImage: {
+    width: cardWidth - theme.SIZES.BASE,
+    height: cardWidth - theme.SIZES.BASE,
+    borderRadius: 3,
   },
 });
 

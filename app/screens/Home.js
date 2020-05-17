@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Dimensions, ScrollView, Image} from 'react-native';
-import {Block, Text, theme} from 'galio-framework';
+import {Block, theme} from 'galio-framework';
+
 import {useCamera} from '../context/camera';
 
 const {width} = Dimensions.get('screen');
@@ -8,14 +9,15 @@ const cardWidth = width - theme.SIZES.BASE * 2;
 
 export default function Home() {
   const {captures} = useCamera();
+
   const renderImage = raw => {
     if (!raw) {
       return <Block />;
     }
 
     return (
-      <Block center style={styles.productItem}>
-        <Image resizeMode="cover" style={styles.productImage} source={raw} />
+      <Block center style={styles.item}>
+        <Image resizeMode="cover" style={styles.image} source={raw} />
       </Block>
     );
   };
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
   group: {
     paddingTop: theme.SIZES.BASE,
   },
-  productItem: {
+  item: {
     width: cardWidth - theme.SIZES.BASE * 2,
     marginHorizontal: theme.SIZES.BASE,
     shadowColor: 'black',
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.2,
   },
-  productImage: {
+  image: {
     width: cardWidth - theme.SIZES.BASE,
     height: cardWidth - theme.SIZES.BASE,
     borderRadius: 3,

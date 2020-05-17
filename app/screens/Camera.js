@@ -37,14 +37,12 @@ export default function Camera() {
     const photoData = await cameraRef.current.takePictureAsync();
     addCapture(photoData);
     setCapturing(false);
-    // this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
   };
 
   const handleLongCapture = async () => {
     const videoData = await cameraRef.current.recordAsync();
     addCapture(videoData, 'video');
     setCapturing(false);
-    // this.setState({ capturing: false, captures: [videoData, ...this.state.captures] });
   };
 
   if (hasPermission === null) {

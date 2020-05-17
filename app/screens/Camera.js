@@ -5,8 +5,10 @@ import * as Permissions from 'expo-permissions';
 import {StyleSheet} from 'react-native';
 
 import CameraToolbar from '../components/CameraToolbar';
+import {useCamera} from '../context/camera';
 
 export default function Camera() {
+  const {addCapture} = useCamera();
   const cameraRef = useRef(null);
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(ExpoCamera.Constants.Type.back);
@@ -33,14 +35,14 @@ export default function Camera() {
 
   const handleShortCapture = async () => {
     const photoData = await cameraRef.current.takePictureAsync();
-    console.log(photoData);
+    addCapture(photoData);
     setCapturing(false);
     // this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
   };
 
   const handleLongCapture = async () => {
     const videoData = await cameraRef.current.recordAsync();
-    console.log(videoData);
+    addCapture(videoData, 'video');
     setCapturing(false);
     // this.setState({ capturing: false, captures: [videoData, ...this.state.captures] });
   };

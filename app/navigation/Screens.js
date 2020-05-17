@@ -1,23 +1,19 @@
-import React from "react";
-import { Dimensions } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import React from 'react';
+import {Dimensions} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
-// screens
-import Home from "../screens/Home";
-import Camera from "../screens/Camera";
-import Pro from "../screens/Pro";
-import Profile from "../screens/Profile";
-import Register from "../screens/Register";
-import Elements from "../screens/Elements";
-import Articles from "../screens/Articles";
-// drawer
-import CustomDrawerContent from "./Menu";
+import Home from '../screens/Home';
+import Camera from '../screens/Camera';
+import Pro from '../screens/Pro';
+import Profile from '../screens/Profile';
+import Register from '../screens/Register';
+import Elements from '../screens/Elements';
+import Articles from '../screens/Articles';
+import CustomDrawerContent from './Menu';
+import {Header} from '../components';
 
-// header for screens
-import { Header } from "../components";
-
-const { width } = Dimensions.get("screen");
+const {width} = Dimensions.get('screen');
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -29,17 +25,17 @@ function ElementsStack(props) {
         name="Elements"
         component={Elements}
         options={{
-          header: ({ navigation, scene }) => (
+          header: ({navigation, scene}) => (
             <Header title="Elements" navigation={navigation} scene={scene} />
           ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
+          cardStyle: {backgroundColor: '#F8F9FE'},
         }}
       />
-            <Stack.Screen
+      <Stack.Screen
         name="Pro"
         component={Pro}
         options={{
-          header: ({ navigation, scene }) => (
+          header: ({navigation, scene}) => (
             <Header
               title=""
               back
@@ -49,7 +45,7 @@ function ElementsStack(props) {
               scene={scene}
             />
           ),
-          headerTransparent: true
+          headerTransparent: true,
         }}
       />
     </Stack.Navigator>
@@ -63,17 +59,17 @@ function ArticlesStack(props) {
         name="Articles"
         component={Articles}
         options={{
-          header: ({ navigation, scene }) => (
+          header: ({navigation, scene}) => (
             <Header title="Articles" navigation={navigation} scene={scene} />
           ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
+          cardStyle: {backgroundColor: '#F8F9FE'},
         }}
       />
-            <Stack.Screen
+      <Stack.Screen
         name="Pro"
         component={Pro}
         options={{
-          header: ({ navigation, scene }) => (
+          header: ({navigation, scene}) => (
             <Header
               title=""
               back
@@ -83,7 +79,7 @@ function ArticlesStack(props) {
               scene={scene}
             />
           ),
-          headerTransparent: true
+          headerTransparent: true,
         }}
       />
     </Stack.Navigator>
@@ -97,7 +93,7 @@ function ProfileStack(props) {
         name="Profile"
         component={Profile}
         options={{
-          header: ({ navigation, scene }) => (
+          header: ({navigation, scene}) => (
             <Header
               transparent
               white
@@ -106,15 +102,15 @@ function ProfileStack(props) {
               scene={scene}
             />
           ),
-          cardStyle: { backgroundColor: "#FFFFFF" },
-          headerTransparent: true
+          cardStyle: {backgroundColor: '#FFFFFF'},
+          headerTransparent: true,
         }}
       />
-            <Stack.Screen
+      <Stack.Screen
         name="Pro"
         component={Pro}
         options={{
-          header: ({ navigation, scene }) => (
+          header: ({navigation, scene}) => (
             <Header
               title=""
               back
@@ -124,7 +120,7 @@ function ProfileStack(props) {
               scene={scene}
             />
           ),
-          headerTransparent: true
+          headerTransparent: true,
         }}
       />
     </Stack.Navigator>
@@ -138,21 +134,17 @@ function HomeStack(props) {
         name="Home"
         component={Home}
         options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title="Home"
-              navigation={navigation}
-              scene={scene}
-            />
+          header: ({navigation, scene}) => (
+            <Header title="Home" navigation={navigation} scene={scene} />
           ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
+          cardStyle: {backgroundColor: '#F8F9FE'},
         }}
       />
       <Stack.Screen
         name="Camera"
         component={Camera}
         options={{
-          header: ({ navigation, scene }) => (
+          header: ({navigation, scene}) => (
             <Header
               title=""
               back
@@ -162,7 +154,7 @@ function HomeStack(props) {
               scene={scene}
             />
           ),
-          headerTransparent: true
+          headerTransparent: true,
         }}
       />
     </Stack.Navigator>
@@ -172,31 +164,31 @@ function HomeStack(props) {
 function AppStack(props) {
   return (
     <Drawer.Navigator
-      style={{ flex: 1 }}
+      style={{flex: 1}}
       drawerContent={props => <CustomDrawerContent {...props} />}
       drawerStyle={{
-        backgroundColor: "white",
-        width: width * 0.8
+        backgroundColor: 'white',
+        width: width * 0.8,
       }}
       drawerContentOptions={{
-        activeTintcolor: "white",
-        inactiveTintColor: "#000",
-        activeBackgroundColor: "transparent",
+        activeTintcolor: 'white',
+        inactiveTintColor: '#000',
+        activeBackgroundColor: 'transparent',
         itemStyle: {
           width: width * 0.75,
-          backgroundColor: "transparent",
+          backgroundColor: 'transparent',
           paddingVertical: 16,
           paddingHorizonal: 12,
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center",
-          overflow: "hidden"
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
         },
         labelStyle: {
           fontSize: 18,
           marginLeft: 12,
-          fontWeight: "normal"
-        }
+          fontWeight: 'normal',
+        },
       }}
       initialRouteName="Home"
     >

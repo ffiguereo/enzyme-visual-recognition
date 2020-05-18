@@ -34,7 +34,9 @@ export default function Camera() {
   };
 
   const handleShortCapture = async () => {
-    const photoData = await cameraRef.current.takePictureAsync();
+    const photoData = await cameraRef.current.takePictureAsync({
+      quality: 0.3,
+    });
     addCapture(photoData);
     setCapturing(false);
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Dimensions, ScrollView, Image} from 'react-native';
-import {Block, theme} from 'galio-framework';
+import {Block, theme, Text} from 'galio-framework';
 
 import {useCamera} from '../context/camera';
 
@@ -9,18 +9,6 @@ const cardWidth = width - theme.SIZES.BASE * 2;
 
 export default function Home() {
   const {captures} = useCamera();
-
-  const renderImage = raw => {
-    if (!raw) {
-      return <Block />;
-    }
-
-    return (
-      <Block center style={styles.item}>
-        <Image resizeMode="cover" style={styles.image} source={raw} />
-      </Block>
-    );
-  };
 
   return (
     <Block flex center>
@@ -44,8 +32,23 @@ export default function Home() {
                         paddingHorizontal: theme.SIZES.BASE / 2,
                       }}
                     >
-                      {renderImage(item.raw)}
-                      {renderImage(item.raw)}
+                      <Block center style={styles.item}>
+                        <Image
+                          resizeMode="cover"
+                          style={styles.image}
+                          source={item.image}
+                        />
+                      </Block>
+                      <Block flex>
+                        {item.classifiers.map((cfier, i) => {
+                          return (
+                            <Block key={`${i}-${index}`}>
+                              <Text>Class: {cfier.class}</Text>
+                              <Text>Score: {cfier.score}</Text>
+                            </Block>
+                          );
+                        })}
+                      </Block>
                     </ScrollView>
                   </Block>
                 </Block>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Platform} from 'react-native';
+import {Buffer} from 'buffer';
 
 const CameraContext = React.createContext();
 CameraContext.displayName = 'CameraContext';
@@ -8,44 +9,44 @@ function CameraProvider(props) {
   const [captures, setCaptures] = React.useState([]);
 
   const addCapture = (data, type = 'photo') => {
-    setCaptures([
-      ...captures,
-      {
-        type,
-        raw: data,
-      },
-    ]);
-
+    // eslint-disable-next-line no-undef
     const form = new FormData();
 
     form.append('images_file', {
-      name: data.fileName,
-      type: data.type,
+      name: `${Date.now()}.jpg`,
+      type: 'image/jpeg',
       uri:
         Platform.OS === 'android' ? data.uri : data.uri.replace('file://', ''),
     });
     form.append('threshold', 0.6);
     form.append('classifier_ids', 'default');
-    const apiKey = '';
+    const apiKey = 'fR6RwQPMRWAjtNaAvaqdPlTsN3t0StYsJAat4CMCNxER';
 
     fetch(
       'https://gateway.watsonplatform.net/visual-recognition/api/v3/classify?version=2018-03-19',
       {
-        method: 'POST',
-        credentials: `apiKey:${apiKey}`,
+        method: 'post',
         headers: {
           'Content-Type': 'multipart/form-data',
+          Accept: 'application/json',
+          Authorization: `Basic ${Buffer.from(`apiKey:${apiKey}`).toString(
+            'base64',
+          )}`,
         },
         body: form,
       },
     )
-      .then(async res => {
-        console.log(res.ok, await res.text());
-        return 'res.json()';
-      })
+      .then(res => res.json())
       .then(res => {
-        console.log(res);
-        console.log('image uploaded');
+        console.log('KASFHPASIUHFA', res);
+        setCaptures([
+          ...captures,
+          {
+            type,
+            image: data,
+            classifiers: res.images[0].classifiers[0].classes,
+          },
+        ]);
       })
       .catch(err => {
         console.log('......ERROR', err);

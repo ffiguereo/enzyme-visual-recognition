@@ -1,6 +1,5 @@
 import React from 'react';
 import {Platform} from 'react-native';
-import {Buffer} from 'buffer';
 
 const CameraContext = React.createContext();
 CameraContext.displayName = 'CameraContext';
@@ -8,53 +7,50 @@ CameraContext.displayName = 'CameraContext';
 function CameraProvider(props) {
   const [captures, setCaptures] = React.useState([]);
 
-  const addCapture = (data, type = 'photo') => {
+  const addCapture = (data, implementation, type = 'photo') => {
     // eslint-disable-next-line no-undef
     const form = new FormData();
 
-    form.append('images_file', {
+    form.append('image_file', {
       name: `${Date.now()}.jpg`,
       type: 'image/jpeg',
       uri:
         Platform.OS === 'android' ? data.uri : data.uri.replace('file://', ''),
     });
-    form.append('threshold', 0.6);
-    form.append('classifier_ids', 'default');
-    const apiKey = 'fR6RwQPMRWAjtNaAvaqdPlTsN3t0StYsJAat4CMCNxER';
+
+    form.append('implementation', implementation);
 
     fetch(
-      'https://gateway.watsonplatform.net/visual-recognition/api/v3/classify?version=2018-03-19',
+      'http://192.168.1.49:1880/VAmodule',
       {
         method: 'post',
         headers: {
           'Content-Type': 'multipart/form-data',
           Accept: 'application/json',
-          Authorization: `Basic ${Buffer.from(`apiKey:${apiKey}`).toString(
-            'base64',
-          )}`,
         },
         body: form,
       },
     )
       .then(res => res.json())
-      .then(res => {
-        console.log('KASFHPASIUHFA', res);
+      .then(({ result }) => {
+        let classifiers;
+
+        if (implementation === 'IBM') {
+          classifiers = result.images[0].classifiers[0].classes;
+        } else if (implementation === 'TESSERACT') {
+          classifiers = result;
+        }
+
         setCaptures([
           ...captures,
           {
+            implementation,
             type,
             image: data,
-            classifiers: res.images[0].classifiers[0].classes,
+            classifiers
           },
         ]);
-      })
-      .catch(err => {
-        console.log('......ERROR', err);
       });
-  };
-
-  const deleteCapture = () => {
-    // TODO;
   };
 
   return (
@@ -62,7 +58,6 @@ function CameraProvider(props) {
       value={{
         captures,
         addCapture,
-        deleteCapture,
       }}
       {...props}
     />

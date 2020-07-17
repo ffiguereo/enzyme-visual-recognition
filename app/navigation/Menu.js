@@ -14,10 +14,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
   const insets = useSafeArea();
   const screens = [
     "Home", 
-    "Profile",
-    "Account",
-    "Elements",
-    "Articles",
+    "TESSERACT",
   ];
   return (
     <Block

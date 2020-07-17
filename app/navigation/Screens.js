@@ -4,12 +4,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import Home from '../screens/Home';
+import TESSERACT from '../screens/TESSERACT';
 import Camera from '../screens/Camera';
-import Pro from '../screens/Pro';
-import Profile from '../screens/Profile';
-import Register from '../screens/Register';
-import Elements from '../screens/Elements';
-import Articles from '../screens/Articles';
 import CustomDrawerContent from './Menu';
 import {Header} from '../components';
 
@@ -18,116 +14,7 @@ const {width} = Dimensions.get('screen');
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function ElementsStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Elements"
-        component={Elements}
-        options={{
-          header: ({navigation, scene}) => (
-            <Header title="Elements" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: {backgroundColor: '#F8F9FE'},
-        }}
-      />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({navigation, scene}) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function ArticlesStack(props) {
-  return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Articles"
-        component={Articles}
-        options={{
-          header: ({navigation, scene}) => (
-            <Header title="Articles" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: {backgroundColor: '#F8F9FE'},
-        }}
-      />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({navigation, scene}) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function ProfileStack(props) {
-  return (
-    <Stack.Navigator initialRouteName="Profile" mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          header: ({navigation, scene}) => (
-            <Header
-              transparent
-              white
-              title="Profile"
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          cardStyle: {backgroundColor: '#FFFFFF'},
-          headerTransparent: true,
-        }}
-      />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({navigation, scene}) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function HomeStack(props) {
+function HomeStack() {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
@@ -135,11 +22,35 @@ function HomeStack(props) {
         component={Home}
         options={{
           header: ({navigation, scene}) => (
-            <Header title="Home" navigation={navigation} scene={scene} />
+            <Header title="IBM" navigation={navigation} scene={scene} />
           ),
           cardStyle: {backgroundColor: '#F8F9FE'},
         }}
       />
+    </Stack.Navigator>
+  );
+}
+
+function TESSERACTStack() {
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
+      <Stack.Screen
+        name="TESSERACT"
+        component={TESSERACT}
+        options={{
+          header: ({navigation, scene}) => (
+            <Header title="TESSERACT" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: {backgroundColor: '#F8F9FE'},
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function CameraStack() {
+  return (
+    <Stack.Navigator mode="card" headerMode="screen">
       <Stack.Screen
         name="Camera"
         component={Camera}
@@ -193,15 +104,13 @@ function AppStack(props) {
       initialRouteName="Home"
     >
       <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Profile" component={ProfileStack} />
-      <Drawer.Screen name="Account" component={Register} />
-      <Drawer.Screen name="Elements" component={ElementsStack} />
-      <Drawer.Screen name="Articles" component={ArticlesStack} />
+      <Drawer.Screen name="TESSERACT" component={TESSERACTStack} />
+      <Drawer.Screen name="Camera" component={CameraStack} />
     </Drawer.Navigator>
   );
 }
 
-export default function OnboardingStack(props) {
+export default function OnboardingStack() {
   return (
     <Stack.Navigator mode="card" headerMode="none">
       <Stack.Screen name="App" component={AppStack} />

@@ -7,14 +7,14 @@ import {useCamera} from '../context/camera';
 const {width} = Dimensions.get('screen');
 const cardWidth = width - theme.SIZES.BASE * 2;
 
-export default function Home() {
+export default function TESSERACT() {
   const {captures} = useCamera();
 
   return (
     <Block flex center>
       <ScrollView>
         {captures
-          .filter(img => img.implementation === 'IBM')
+        .filter(img => img.implementation === 'TESSERACT')
           .filter(img => img.type === 'photo')
           .map((item, index) => (
             <ScrollView key={index} showsVerticalScrollIndicator={false}>
@@ -41,14 +41,9 @@ export default function Home() {
                         />
                       </Block>
                       <Block flex>
-                        {item.classifiers.map((cfier, i) => {
-                          return (
-                            <Block key={`${i}-${index}`}>
-                              <Text>Class: {cfier.class}</Text>
-                              <Text>Score: {cfier.score}</Text>
-                            </Block>
-                          );
-                        })}
+                        <Block>
+                          <Text>{item.classifiers}</Text>
+                        </Block>
                       </Block>
                     </ScrollView>
                   </Block>

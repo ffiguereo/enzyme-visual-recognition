@@ -7,7 +7,7 @@ import {StyleSheet} from 'react-native';
 import CameraToolbar from '../components/CameraToolbar';
 import {useCamera} from '../context/camera';
 
-export default function Camera() {
+export default function Camera({ route }) {
   const {addCapture} = useCamera();
   const cameraRef = useRef(null);
   const [hasPermission, setHasPermission] = useState(null);
@@ -37,13 +37,13 @@ export default function Camera() {
     const photoData = await cameraRef.current.takePictureAsync({
       quality: 0.3,
     });
-    addCapture(photoData);
+    addCapture(photoData, route.params.implementation);
     setCapturing(false);
   };
 
   const handleLongCapture = async () => {
     const videoData = await cameraRef.current.recordAsync();
-    addCapture(videoData, 'video');
+    addCapture(videoData, route.params.implementation, 'video');
     setCapturing(false);
   };
 

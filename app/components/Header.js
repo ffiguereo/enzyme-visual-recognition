@@ -13,10 +13,10 @@ const iPhoneX = () =>
   Platform.OS === 'ios' &&
   (height === 812 || width === 812 || height === 896 || width === 896);
 
-const CameraButton = ({isWhite, style, navigation}) => (
+const CameraButton = ({isWhite, style, navigation, implementation}) => (
   <TouchableOpacity
     style={[styles.button, style]}
-    onPress={() => navigation.navigate('Camera')}
+    onPress={() => navigation.navigate('Camera', { screen: 'Camera', params: {implementation} })}
   >
     <Icon
       family="entypo"
@@ -91,14 +91,24 @@ class Header extends React.Component {
     }
 
     switch (title) {
-      case 'Home':
+      case 'IBM':
         return (
           <CameraButton
             key="chat-home"
             navigation={navigation}
             isWhite={white}
+            implementation='IBM'
           />
         );
+      case 'TESSERACT':
+          return (
+            <CameraButton
+              key="chat-home"
+              navigation={navigation}
+              isWhite={white}
+              implementation='TESSERACT'
+            />
+          );
       case 'Deals':
         return [
           <BellButton key="chat-categories" navigation={navigation} />,
